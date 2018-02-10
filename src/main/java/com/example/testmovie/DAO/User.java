@@ -9,12 +9,28 @@ public class User {
     private Long id;
 
     @NotNull
-    @Size(min = 5, max = 20)
+//    @Size(min = 5, max = 20)
     private String name;
 
     @NotNull
-    @Size(min = 8, max = 20)
+//    @Size(min = 8, max = 20)
     private String paswd;
+
+    public User(Long id, String name, String paswd) {
+        this.id = id;
+        this.name = name;
+        this.paswd = paswd;
+    }
+
+    public User(String name, String paswd) {
+        this.id = new Long(-1);
+        this.name = name;
+        this.paswd = paswd;
+    }
+
+    //jackson对象的转换需要默认构造函数
+    public User() {
+    }
 
     public Long getId() {
         return id;
