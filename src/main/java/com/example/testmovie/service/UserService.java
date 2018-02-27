@@ -1,20 +1,27 @@
 package com.example.testmovie.service;
 
 import com.example.testmovie.DAO.User;
+import com.example.testmovie.mappers.ObjMapper;
 import com.example.testmovie.mappers.UserMapper;
 import com.example.testmovie.message.Result;
+import com.example.testmovie.utils.Table;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ObjMapper objMapper;
 
     private static Result SUCCESS = new Result(Result.SUCCESS_CODE);
 
@@ -33,7 +40,11 @@ public class UserService {
     }
 
     public ArrayList<User> getAll(){
-        return userMapper.serchAll();
+        Table table = new Table("USER");
+        table.setLike_k(new String[]{"name"});
+        table.setLike_v(new String[]{"何"});
+//        ArrayList<User> result = objMapper.getAll(table);
+        return userMapper.serchAll(table);
     }
 
     @Transactional(readOnly = false)
